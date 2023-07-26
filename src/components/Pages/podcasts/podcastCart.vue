@@ -1,5 +1,7 @@
 
 <template>
+   <audio ref="playMusicButtom" :src="curentPodcast.source" autoplay preload="auto" />
+
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 rounded-xl shadow-xl">
     <div
       class="bg-white border-slate-100 transition-all duration-500 dark:bg-slate-800 transition-all duration-500 dark:border-slate-500 border-b rounded-t-xl p-4 pb-6 sm:p-10 sm:pb-8 lg:p-6 xl:p-10 xl:pb-8 space-y-6 sm:space-y-8 lg:space-y-6 xl:space-y-8"
@@ -18,7 +20,9 @@
           <p
             class="text-cyan-500 transition-all duration-500 dark:text-cyan-400 text-sm leading-6"
           >
-            <abbr title="Episode">Ep.</abbr> 128
+            <abbr title="Episode">{{ curentPodcast.title ? curentPodcast.title : 'music' }}
+            </abbr>
+             {{ curentPodcast.name ? curentPodcast.name : 'musicname' }}
           </p>
           <h2
             class="text-slate-500 transition-all duration-500 dark:text-slate-400 text-sm leading-6 truncate"
@@ -28,8 +32,8 @@
           <p
             class="text-slate-900 transition-all duration-500 dark:text-slate-50 text-lg"
           >
-            Full Stack Radio
-          </p>
+              {{ curentPodcast.detail ? curentPodcast.detail : 'Scaling CSS at Heroku with Utility Classes' }}       
+         </p>
         </div>
       </div>
       <div class="space-y-2">
@@ -74,7 +78,7 @@
       class="bg-slate-50 text-slate-500 transition-all duration-500 dark:bg-slate-600 transition-all duration-500 dark:text-slate-200 rounded-b-xl flex items-center"
     >
       <div class="flex-auto flex items-center justify-evenly">
-        <button type="button" aria-label="Add to favorites">
+        <button type="button" aria-label="Add to favorites" >
           <svg width="24" height="24">
             <path
               d="M7 6.931C7 5.865 7.853 5 8.905 5h6.19C16.147 5 17 5.865 17 6.931V19l-5-4-5 4V6.931Z"
@@ -133,7 +137,7 @@
         class="bg-white text-slate-900 transition-all duration-500 dark:bg-slate-100 transition-all duration-500 dark:text-slate-700 flex-none -my-2 mx-auto w-20 h-20 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
         aria-label="Pause"
       >
-        <svg width="30" height="32" fill="currentColor">
+        <svg width="30" height="32" fill="currentColor" @click="playMusic">
           <rect x="6" y="4" width="4" height="24" rx="2"></rect>
           <rect x="20" y="4" width="4" height="24" rx="2"></rect>
         </svg>
@@ -195,19 +199,22 @@
 <script>
 export default {
   props:{
-    podcasts:{
-        title: String,
-        name: String,
-        singer: String,
-        sorce:
-        String,
-        img: String,
-        detail: String,
-    }
+    curentPodcast:Object
   },
   name : 'PodcastCart',
   data(){
-
+    return{
+      
+    }
+  },
+  methods:{
+    playMusic(){
+      console.log(this.curentPodcast.source);
+      this.$refs.playMusicButtom.play()
+      console.log('jhdsvg');
+      console.log(this.$refs.playMusicButtom);
+      // this.playMusic.play();
+    }
   }
 }
 </script>

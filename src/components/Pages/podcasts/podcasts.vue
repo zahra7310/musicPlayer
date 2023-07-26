@@ -3,14 +3,15 @@ import podcastCart from "./podcastCart.vue";
 </script>
 
 <template>
+  <podcastCart :curentPodcast="curentPodcast"/>
   <div v-if="playList">
     <podcastCart :podcasts="podcasts"></podcastCart>
   </div>
   <div
-    @click="playActive"
-    v-for="podcast in podcasts"
+    @click="playActive(index)"
+    v-for="(podcast , index) in podcasts"
     :key="podcast.id"
-    class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7"
+    class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 cursor-pointer"
   >
     <div class="max-auto dark:bg-slate-800 p-6 rounded-xl">
       <div class="flex items-center space-x-4">
@@ -48,9 +49,11 @@ import podcastCart from "./podcastCart.vue";
 
 <script>
 export default {
+  components: { podcastCart },
   name: "podcasts",
   data() {
     let playList = false;
+    let curentPodcast="";
     const podcasts = [
       {
         title: "Ep.",
@@ -83,11 +86,14 @@ export default {
     return {
       podcasts,
       playList,
+      curentPodcast,
     };
   },
   methods:{
-    playActive(){
-        playList=!playList;
+    playActive(index){
+       console.log(index);
+      this.curentPodcast = this.podcasts[index];
+      console.log(this.curentPodcast);
     }
   }
 };
