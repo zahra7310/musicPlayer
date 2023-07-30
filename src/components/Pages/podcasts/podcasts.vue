@@ -1,18 +1,15 @@
 <script setup>
 import podcastCart from "./podcastCart.vue";
+import {ref} from "vue"
 </script>
 
 <template>
-  <podcastCart :curentPodcast="curentPodcast"/>
-  <div v-if="playList">
-    <podcastCart :podcasts="podcasts"></podcastCart>
-  </div>
+  <podcastCart :curentPodcast="curentPodcast"  :podcasts="podcasts" :activePlay="activePlay"/>
   <div
     @click="playActive(index)"
-    v-for="(podcast , index) in podcasts"
+    v-for="(podcast, index) in podcasts"
     :key="podcast.id"
-    class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 cursor-pointer"
-  >
+    class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 cursor-pointer">
     <div class="max-auto dark:bg-slate-800 p-6 rounded-xl">
       <div class="flex items-center space-x-4">
         <img
@@ -52,50 +49,50 @@ export default {
   components: { podcastCart },
   name: "podcasts",
   data() {
-    let playList = false;
-    let curentPodcast="";
+    let activePlay = false;
+    let curentPodcast = "";
     const podcasts = [
       {
         title: "Ep.",
-        name: "music",
-        singer: "jungel boogie",
-        sorce:
+        name: "jungel boogie",
+        singer: "funk",
+        source:
           "https://shenidid.com/wp-content/uploads/2023/funk/01_Kool%20%20The%20Gang%20-%20Jungle%20Boogie.mp3",
         img: "https://tailwindcss.com/_next/static/media/full-stack-radio.afb14e4e.png",
         detail: "Full Stack Radio",
       },
       {
         title: "test2",
-        name: "music",
-        singer: "jungel boogie",
-        sorce:
-          "https://shenidid.com/wp-content/uploads/2023/funk/01_Kool%20%20The%20Gang%20-%20Jungle%20Boogie.mp3",
+        name: "Butter",
+        singer: "BTS",
+        source:
+          "https://files.musicfeed.ir/dir/2021/5/BTS%20Butter.mp3",
         img: "https://tailwindcss.com/_next/static/media/full-stack-radio.afb14e4e.png",
         detail: "Full Stack Radio",
       },
       {
-        title: "test3",
-        name: "music",
-        singer: "jungel boogie",
-        sorce:
-          "https://shenidid.com/wp-content/uploads/2023/funk/01_Kool%20%20The%20Gang%20-%20Jungle%20Boogie.mp3",
+        title: "funk",
+        name: "The Gang - Celebration",
+        singer: "funk",
+        source:
+          "https://shenidid.com/wp-content/uploads/2023/funk/02_Kool&TheGang-Celebration.mp3",
         img: "https://tailwindcss.com/_next/static/media/full-stack-radio.afb14e4e.png",
         detail: "Full Stack Radio",
       },
     ];
     return {
       podcasts,
-      playList,
+      activePlay,
       curentPodcast,
     };
   },
-  methods:{
-    playActive(index){
-       console.log(index);
+  methods: {
+    playActive(index) {
+      this.activePlay = true;
+      console.log(this.activePlay)
       this.curentPodcast = this.podcasts[index];
-      console.log(this.curentPodcast);
-    }
-  }
+    },
+  },
 };
 </script>
 

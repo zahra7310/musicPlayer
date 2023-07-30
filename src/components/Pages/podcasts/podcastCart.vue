@@ -1,6 +1,6 @@
 
 <template>
-   <audio ref="playMusicButtom" :src="curentPodcast.source" autoplay preload="auto" />
+   <audio ref="playMusicButtom" :src="curentPodcast.source ? curentPodcast.source : podcasts[1].source" autoplay preload="auto" />
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 rounded-xl shadow-xl">
     <div
@@ -133,14 +133,20 @@
         </button>
       </div>
       <button
+       @click="playMusic"
         type="button"
         class="bg-white text-slate-900 transition-all duration-500 dark:bg-slate-100 transition-all duration-500 dark:text-slate-700 flex-none -my-2 mx-auto w-20 h-20 rounded-full ring-1 ring-slate-900/5 shadow-md flex items-center justify-center"
         aria-label="Pause"
       >
-        <svg width="30" height="32" fill="currentColor" @click="playMusic">
+         <span v-if="togglePlay">
+        <svg width="30" height="32" fill="currentColor" >
           <rect x="6" y="4" width="4" height="24" rx="2"></rect>
           <rect x="20" y="4" width="4" height="24" rx="2"></rect>
         </svg>
+       </span>
+       <span v-else>
+         pause
+       </span>
       </button>
       <div class="flex-auto flex items-center justify-evenly">
         <button type="button" aria-label="Skip 10 seconds" class="">
@@ -197,23 +203,30 @@
 
 
 <script>
+import {ref} from "vue"
 export default {
   props:{
-    curentPodcast:Object
+    curentPodcast:Object,
+    podcasts:Object,
+    activePlay:Boolean
+
   },
   name : 'PodcastCart',
   data(){
+    let togglePlay = ref(this.activePlay);
     return{
-      
+      togglePlay
     }
   },
   methods:{
     playMusic(){
-      console.log(this.curentPodcast.source);
-      this.$refs.playMusicButtom.play()
-      console.log('jhdsvg');
-      console.log(this.$refs.playMusicButtom);
-      // this.playMusic.play();
+      this.togglePlay = !this.togglePlay;
+      console.log('toglle' , this.togglePlay , 'acti',this.activePlay) ;
+      if(this.togglePlay){
+        this.$refs.playMusicButtom.play();
+      }else{
+        this.$refs.playMusicButtom.pause()
+      }
     }
   }
 }
