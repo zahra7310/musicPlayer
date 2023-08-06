@@ -1,13 +1,7 @@
-<script setup>
-import { mapState } from "vuex";
-import podcasts from "../podcasts/podcasts.vue";
-</script>
-
 <template>
-  <div v-if="showPlayList">
-  </div>
-  <div v-else>
-    <div class="mx-auto max-w-7xl py-10 sm:px-10 lg:px-10">
+ <div>
+   <h3 class="text-2xl text-white px-8 pt-10 font-semibold">Music</h3>
+   <div class="mx-auto max-w-7xl py-8 sm:px-8 lg:px-8">
       <main class="grid min-h-screen">
         <div>
           <section class="grid grid-cols-1 sm:grid-cols-4 gap-4">
@@ -91,23 +85,25 @@ import podcasts from "../podcasts/podcasts.vue";
       </main>
     </div>
   </div>
-</template>
+  </template>
+
+  <script>
+ export default{
+   data(){
+    let  paramName 
+    return{
+      paramName
+    }
+   },
+   methods:{
+    goToPlayList(index){
+     this.paramName = this.$store.state.podcasts[index].id;
+      this.$router.push({ path : `/music/${this.paramName}`})
+    }
+
+   }
 
 
-<script>
-export default {
-  data() {
-    let showPlayList = false;
-    return {
-      showPlayList,
-    };
-  },
-  methods: {
-    goToPlayList(index) {
-      this.$store.state.musicIndex = index;
-      this.$store.state.currentPlay = this.$store.state.podcasts[index];
-      this.$router.push({ path: '/podcasts'});
-    },
-  },
-};
+ }
+
 </script>

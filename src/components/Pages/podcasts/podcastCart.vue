@@ -1,11 +1,10 @@
-
 <template>
   <div>
     <audio
-      ref="playMusicButtom"
+      ref="player"
       :src="curentPodcast.source ? curentPodcast.source : podcasts[1].source"
-      autoplay
       preload="auto"
+      autoplay
     ></audio>
     <div
       class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 rounded-xl shadow-xl"
@@ -51,16 +50,26 @@
         <div class="space-y-2">
           <div class="relative">
             <div
+              id="progress-bar"
               class="bg-slate-100 transition-all duration-500 dark:bg-slate-700 rounded-full overflow-hidden"
             >
-              <div
+              <input
+                class="bg-cyan-500 transition-all duration-500 dark:bg-cyan-400 w-1/2 h-2"
+                v-model="playbackTime"
+                type="range"
+                min="0"
+                :max="audioDuration"
+                id="position"
+                name="position"
+              />
+              <!-- <div
                 class="bg-cyan-500 transition-all duration-500 dark:bg-cyan-400 w-1/2 h-2"
                 role="progressbar"
                 aria-label="music progress"
                 aria-valuenow="1456"
                 aria-valuemin="0"
-                aria-valuemax="4550"
-              ></div>
+                :aria-valuemax="audioDuration"
+              ></div> -->
             </div>
             <div
               class="ring-cyan-500 transition-all duration-500 dark:ring-cyan-400 ring-2 absolute left-1/2 top-1/2 w-4 h-4 -mt-2 -ml-2 flex items-center justify-center bg-white rounded-full shadow"
@@ -73,16 +82,16 @@
           <div
             class="flex justify-between text-sm leading-6 font-medium tabular-nums"
           >
-            <div
+            {{ audioCurrentDuration }}
+            <span
+              v-html="elapsedTime()"
               class="text-cyan-500 transition-all duration-500 dark:text-slate-100"
             >
-              24:16
-            </div>
+            </span>
             <div
+              v-html="totalTime()"
               class="text-slate-500 transition-all duration-500 dark:text-slate-400"
-            >
-              75:50
-            </div>
+            ></div>
           </div>
         </div>
       </div>
@@ -106,6 +115,7 @@
             type="button"
             class="hidden sm:block lg:hidden xl:block"
             aria-label="Previous"
+            @click="previousMusic"
           >
             <svg width="24" height="24" fill="none">
               <path
@@ -151,7 +161,7 @@
           aria-label="Pause"
         >
           <span v-if="activePlay">
-            <svg
+            <!-- <svg
               xmlns="http://www.w3.org/2000/svg"
               width="40"
               height="40"
@@ -162,7 +172,12 @@
               <path
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
               ></path>
-            </svg>
+            </svg> -->
+            <img
+              width="30"
+              height="30"
+              src="src/assets/images/icons/icons-play.png"
+            />
           </span>
           <span v-else>
             <svg width="30" height="32" fill="currentColor">
@@ -194,6 +209,7 @@
             type="button"
             class="hidden sm:block lg:hidden xl:block"
             aria-label="Next"
+            @click="nextMusic"
           >
             <svg width="24" height="24" fill="none">
               <path
@@ -221,6 +237,40 @@
           </button>
         </div>
       </div>
+      <!-- test -->
+      <svg
+        @click="toggleAudio()"
+        v-show="!isPlaying"
+        class="play-button text-gray-400"
+        :class="{
+          'text-orange-600': audioLoaded,
+          'hover:text-orange-400': audioLoaded,
+          'cursor-pointer': audioLoaded,
+        }"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <svg
+        @click="toggleAudio()"
+        v-show="isPlaying"
+        class="play-button text-orange-400 hover:text-orange-400 cursor-pointer"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
     </div>
   </div>
 </template>
@@ -231,28 +281,155 @@ import { ref } from "vue";
 export default {
   props: {
     curentPodcast: Object,
-    podcasts: Object,
     activePlay: Boolean,
   },
   name: "PodcastCart",
   data() {
     let toggleMusic = ref(this.activePlay);
+    let audioCurrentDuration = ref();
+
     return {
       toggleMusic,
+      audioCurrentDuration,
+      playbackTime: 0,
+      audioDuration: 100,
+      audioLoaded: false,
+      isPlaying: false,
     };
   },
-  emit: ["togglePlay"],
+  beforeMount() {
+    const podcasts = this.$store.state.podcasts;
+    return {
+      podcasts,
+    };
+  },
+  emit: ["togglePlay", "nextTrack", "previousTrack"],
   methods: {
     playMusic() {
+      this.toggleAudio();
       this.$emit("togglePlay");
       this.toggleMusic = this.activePlay;
-      console.log(this.toggleMusic);
       if (this.toggleMusic) {
-        this.$refs.playMusicButtom.play();
+        this.$refs.player.play();
       } else {
-        this.$refs.playMusicButtom.pause();
+        this.$refs.player.pause();
       }
     },
+    nextMusic() {
+      this.$emit("nextTrack");
+      this.toggleAudio() 
+    },
+    previousMusic() {
+      this.$emit("previousTrack");
+    },
+    initSlider() {
+      var audio = this.$refs.player;
+      if (audio) {
+        this.audioDuration = Math.round(audio.duration);
+      }
+    },
+    convertTime(seconds) {
+      const format = (val) => `0${Math.floor(val)}`.slice(-2);
+      var hours = seconds / 3600;
+      var minutes = (seconds % 3600) / 60;
+      return [minutes, seconds % 60].map(format).join(":");
+    },
+    totalTime() {
+      var audio = this.$refs.player;
+      if (audio) {
+        var seconds = audio.duration;
+        return this.convertTime(seconds);
+      } else {
+        return "00:00";
+      }
+    },
+    elapsedTime() {
+      var audio = this.$refs.player;
+      if (audio) {
+        var seconds = audio.currentTime;
+        this.audioCurrentDuration = this.convertTime(seconds);
+        return this.convertTime(seconds);
+      } else {
+        return "00:00";
+      }
+    },
+    playbackListener(e) {
+      var audio = this.$refs.player;
+      this.playbackTime = audio.currentTime;
+      audio.addEventListener("ended", this.endListener);
+      audio.addEventListener("pause", this.pauseListener);
+    },
+    //Function to run when audio is paused by user
+    pauseListener() {
+      this.isPlaying = false;
+      this.listenerActive = false;
+      this.cleanupListeners();
+    },
+    //Function to run when audio play reaches the end of file
+    endListener() {
+      this.isPlaying = false;
+      this.listenerActive = false;
+      this.cleanupListeners();
+    },
+    //Remove listeners after audio play stops
+    cleanupListeners() {
+      var audio = this.$refs.player;
+      audio.removeEventListener("timeupdate", this.playbackListener);
+      audio.removeEventListener("ended", this.endListener);
+      audio.removeEventListener("pause", this.pauseListener);
+      //console.log("All cleaned up!");
+    },
+    toggleAudio() {
+      var audio = this.$refs.player;
+      if (audio.paused) {
+        audio.play();
+        this.isPlaying = true;
+      } else {
+        audio.pause();
+        this.isPlaying = false;
+      }
+    },
+  },
+  mounted: function () {
+    this.$nextTick(function () {
+      var audio = this.$refs.player;
+      audio.addEventListener(
+        "loadedmetadata",
+        function (e) {
+          this.initSlider();
+        }.bind(this)
+      );
+      audio.addEventListener(
+        "canplay",
+        function (e) {
+          this.audioLoaded = true;
+        }.bind(this)
+      );
+    });
+    this.$watch("isPlaying", function () {
+      if (this.isPlaying) {
+        var audio = this.$refs.player;
+        this.initSlider();
+        if (!this.listenerActive) {
+          this.listenerActive = true;
+          audio.addEventListener("timeupdate", this.playbackListener);
+        }
+      }
+    });
+    this.$watch("playbackTime", function () {
+      var audio = this.$refs.player;
+      var diff = Math.abs(this.playbackTime - this.$refs.player.currentTime);
+
+      if (diff > 0.01) {
+        this.$refs.player.currentTime = this.playbackTime;
+      }
+    });
+    this.$watch("activePlay",function(){
+      this.initSlider();
+      this.cleanupListeners();
+      this.isPlaying=true;
+      this.$refs.player.play();
+    })
   },
 };
 </script>

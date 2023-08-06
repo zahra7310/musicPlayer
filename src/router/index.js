@@ -9,6 +9,8 @@ import PostTemplate from '../components/Pages/posts/PostTemplate.vue'
 import PostViewCart from '../components/Pages/posts/PostViewCart.vue'
 import podcasts from '../components/Pages/podcasts/podcasts.vue'
 import navbar from '../components/Pages/sidebar/navbar.vue'
+import music from '../components/Pages/music/music.vue'
+import musicCard from '../components/Pages/music/musicCard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,11 +60,20 @@ const router = createRouter({
       ]
     },
     {
+      path:'/music',
+      name:'music',
+      component:music,
+    },
+    {
+      path:'/music/:id',
+      name:'musicCard',
+      component:musicCard,
+    },
+    {
       path:'/podcasts',
       name:'podcasts',
       component:podcasts,
     }
-    
   ]
 })
 

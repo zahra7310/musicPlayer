@@ -6,10 +6,12 @@ import { ref } from "vue";
 <template>
   <div>
     <podcastCart
-      :curentPodcast="(curentPodcast = playCurrentPodcast)"
+      :curentPodcast="currentPlay"
       :podcasts="podcasts"
       :activePlay="activePlay"
       @togglePlay="togglePlay"
+      @nextTrack="nextTrack"
+      @previousTrack="previousTrack"
     />
     <div
       @click="playActive(index)"
@@ -29,23 +31,36 @@ import { ref } from "vue";
             height="88"
           />
           <div class="min-w-0 flex-auto space-y-1 font-semibold">
-            <p
-              class="text-cyan-500 transition-all duration-500 dark:text-cyan-400 text-sm leading-6"
-            >
-              <abbr title="Episode">{{ podcast.title }}</abbr>
-              {{ podcast.name }}
-            </p>
             <h2
+              class="text-white transition-all duration-500 dark:text-cyan-400 text-sm leading-6"
+            >
+              <abbr title="Episode" class="text-cyan-500">{{ podcast.title }}</abbr>
+              {{ podcast.name }}
+          </h2>
+            <p
               class="text-slate-500 transition-all duration-500 dark:text-slate-400 text-sm leading-6 truncate"
             >
-              Scaling CSS at Heroku with Utility Classes
-            </h2>
+              {{ podcast.singer }}
+          </p>
             <p
-              class="text-slate-900 transition-all duration-500 dark:text-slate-50 text-lg"
+              class="text-slate-500 transition-all duration-500 dark:text-slate-50 text-lg"
             >
               {{ podcast.detail }}
             </p>
-            <div></div>
+          </div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="bi bi-play-circle-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
+              />
+            </svg>
           </div>
         </div>
       </div>
@@ -56,55 +71,43 @@ import { ref } from "vue";
 <script>
 export default {
   components: { podcastCart },
-  props: {
-    playCurrentPodcast: Object,
-  },
   name: "podcasts",
   data() {
-    let activePlay = false;
-    let curentPodcast = ref([]);
-    const podcasts = [
-      {
-        title: "Ep.",
-        name: "jungel boogie",
-        singer: "funk",
-        source:
-          "https://shenidid.com/wp-content/uploads/2023/funk/01_Kool%20%20The%20Gang%20-%20Jungle%20Boogie.mp3",
-        img: "src/assets/images/ly.webp",
-        detail: "Full Stack Radio",
-      },
-      {
-        title: "test2",
-        name: "Butter",
-        singer: "BTS",
-        source: "https://files.musicfeed.ir/dir/2021/5/BTS%20Butter.mp3",
-        img: "src/assets/images/jangel.jpeg",
-        detail: "Full Stack Radio",
-      },
-      {
-        title: "funk",
-        name: "The Gang - Celebration",
-        singer: "funk",
-        source:
-          "https://shenidid.com/wp-content/uploads/2023/funk/02_Kool&TheGang-Celebration.mp3",
-        img: "src/assets/images/butter.webp",
-        detail: "Full Stack Radio",
-      },
-    ];
+    const currentPlay = this.$store.state.currentPlay;
+    let activePlay = true;
+    const podcasts = this.$store.state.podcasts;
+    const musicIndex = this.$store.state.musicIndex;
     return {
       podcasts,
       activePlay,
-      curentPodcast,
+      currentPlay,
+      musicIndex,
     };
   },
   methods: {
     playActive(index) {
       this.activePlay = false;
-      this.curentPodcast = this.podcasts[index];
+      this.musicIndex = index;
+      this.currentPlay = this.podcasts[index];
     },
     togglePlay() {
       this.activePlay = !this.activePlay;
       console.log(this.activePlay);
+    },
+    nextTrack() {
+      console.log(this.musicIndex);
+      this.activePlay = false;
+      if (this.musicIndex >= 0 && this.musicIndex < this.podcasts.length - 1) {
+        this.musicIndex += 1;
+        this.currentPlay = this.podcasts[this.musicIndex];
+      }
+    },
+    previousTrack() {
+      this.activePlay = false;
+      if (this.musicIndex > 0 && this.musicIndex <= this.podcasts.length) {
+        this.musicIndex -= 1;
+        this.currentPlay = this.podcasts[this.musicIndex];
+      }
     },
   },
 };
