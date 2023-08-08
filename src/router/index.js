@@ -26,23 +26,6 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/users',
-      name: 'users',
-      component: Template,
-      children:[
-        {
-          path: '',
-          name: 'users',
-          component: Users,
-        },
-        {
-          path: ':id',
-          name: 'showuser',
-          component: ShowUser,
-        },
-      ]
-    },
-    {
       path:'/posts',
       name:'posts',
       component:PostTemplate,

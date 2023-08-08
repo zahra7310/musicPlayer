@@ -96,11 +96,11 @@
     }
    },
    methods:{
-    goToPlayList(index){
-     this.paramName = this.$store.state.podcasts[index].id;
-      this.$router.push({ path : `/music/${this.paramName}`})
-    }
-
+    goToPlayList(index) {
+      this.$store.state.musicIndex = index;
+      this.$store.state.currentPlay = this.$store.state.podcasts[index];
+      this.$router.push({ path: '/podcasts'});
+    },
    }
 
 

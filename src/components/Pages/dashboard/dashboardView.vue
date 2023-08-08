@@ -4,9 +4,8 @@ import podcasts from "../podcasts/podcasts.vue";
 </script>
 
 <template>
-  <div v-if="showPlayList">
-  </div>
-  <div v-else>
+  <div>
+    <h3 class="text-2xl text-white px-8 pt-10 font-semibold">Podcasts</h3>
     <div class="mx-auto max-w-7xl py-10 sm:px-10 lg:px-10">
       <main class="grid min-h-screen">
         <div>

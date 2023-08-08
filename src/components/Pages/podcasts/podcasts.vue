@@ -4,8 +4,9 @@ import { ref } from "vue";
 </script>
 
 <template>
-  <div>
-    <podcastCart
+  <div class="pb-10">
+    <div v-if="currentPlay">
+      <podcastCart
       :curentPodcast="currentPlay"
       :podcasts="podcasts"
       :activePlay="activePlay"
@@ -13,13 +14,14 @@ import { ref } from "vue";
       @nextTrack="nextTrack"
       @previousTrack="previousTrack"
     />
+    </div>
     <div
       @click="playActive(index)"
       v-for="(podcast, index) in podcasts"
       :key="podcast.id"
-      class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-7 cursor-pointer"
+      class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5 cursor-pointer"
     >
-      <div class="max-auto bg-gray-900 p-6 rounded-xl">
+      <div class="hover:bg-slate-700 max-auto bg-gray-900 p-6 rounded-xl">
         <div class="flex items-center space-x-4">
           <img
             :src="podcast.img"
@@ -49,7 +51,8 @@ import { ref } from "vue";
             </p>
           </div>
           <div>
-            <svg
+            <img class="opacity-40" src="src/assets/images/icons/play.png" width="35" height="35">
+            <!-- <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="30"
@@ -60,7 +63,7 @@ import { ref } from "vue";
               <path
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
               />
-            </svg>
+            </svg> -->
           </div>
         </div>
       </div>
