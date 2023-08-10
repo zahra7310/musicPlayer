@@ -14,7 +14,7 @@ const store = createStore({
           singer: "Funk",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/01_Kool%20%20The%20Gang%20-%20Jungle%20Boogie.mp3",
-          img: `${baseUrl}/src/assets/images/ly.webp`,
+          img: `src/assets/images/ly.webp`,
           detail: "Full Stack Radio",
         },
         {
@@ -24,7 +24,7 @@ const store = createStore({
           singer: "BTS",
           source:
             "https://files.musicfeed.ir/dir/2021/5/BTS%20Butter.mp3",
-          img: `${baseUrl}/src/assets/images/jangel.jpeg`,
+          img: "/src/assets/images/jangel.jpeg",
           detail: "Full Stack Radio",
         },
         {
@@ -34,7 +34,7 @@ const store = createStore({
           singer: "Funk",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/02_Kool&TheGang-Celebration.mp3",
-          img: `${baseUrl}/src/assets/images/butter.webp`,
+          img: "/src/assets/images/butter.webp",
           detail: "Full Stack Radio",
         },
         {
@@ -44,7 +44,7 @@ const store = createStore({
           singer: "Ohio",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/04-Ohio-Players-Love-Rollercoaster.mp3",
-          img: `${baseUrl}/src/assets/images/honey.jpg`,
+          img: "/src/assets/images/honey.jpg",
           detail: "lorem detail",
         },
         {
@@ -54,7 +54,7 @@ const store = createStore({
           singer: "Ohio",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/05_War-Low-Rider.mp3",
-          img: `${baseUrl}/src/assets/images/war.jpeg`,
+          img: "/src/assets/images/war.jpeg",
           detail: "lorem detail",
         },
         {
@@ -64,7 +64,7 @@ const store = createStore({
           singer: "Ohio",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/06_rock-steady.mp3",
-          img: `${baseUrl}/src/assets/images/Rocksteady.jpeg`,
+          img: "/src/assets/images/Rocksteady.jpeg",
           detail: "lorem detail",
         },
         {
@@ -74,7 +74,7 @@ const store = createStore({
           singer: "Ohio",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/07_Cameo-WordUp.mp3",
-          img: `${baseUrl}/src/assets/images/camo.jpeg`,
+          img: "/src/assets/images/camo.jpeg",
           detail: "lorem detail",
         },
         {
@@ -84,7 +84,7 @@ const store = createStore({
           singer: "Ohio",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/09_stevie_wonder_superstition.mp3",
-          img: `${baseUrl}/src/assets/images/stevie.jpeg`,
+          img: "/src/assets/images/stevie.jpeg",
           detail: "lorem detail",
         },
         {
@@ -94,7 +94,7 @@ const store = createStore({
           singer: "Ohio",
           source:
             "https://shenidid.com/wp-content/uploads/2023/funk/07_Cameo-WordUp.mp3",
-          img: `${baseUrl}/src/assets/images/camo.jpeg`,
+          img: "/src/assets/images/camo.jpeg",
           detail: "lorem detail",
         },
       ],

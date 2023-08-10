@@ -121,7 +121,7 @@
             <img 
               width="30"
               height="30"
-              src="src/assets/images/icons/icons-play.png"
+              src="/src/assets/images/icons/icons-play.png"
             />
           </span>
           <span v-show="isPlaying">

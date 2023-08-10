@@ -1,8 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Users from '../components/Pages/users/Users.vue'
-import ShowUser from '../components/Pages/users/ShowUser.vue'
-import Template from '../components/Pages/users/Template.vue'
 import dashboardView from '../components/Pages/dashboard/dashboardView.vue'
 import PostsView from '../components/Pages/posts/PostsView.vue'
 import PostTemplate from '../components/Pages/posts/PostTemplate.vue'
@@ -19,11 +15,6 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       component: dashboardView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
     },
     {
       path:'/posts',

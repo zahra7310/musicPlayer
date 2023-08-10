@@ -161,7 +161,7 @@
                   d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"
                 ></path>
               </svg> -->
-              <img width="30" height="30" src="src/assets/images/icons/icons-play.png"> 
+              <img width="30" height="30" src="/src/assets/images/icons/icons-play.png"> 
             </span>
             <span v-else>
               <svg width="30" height="32" fill="currentColor">
