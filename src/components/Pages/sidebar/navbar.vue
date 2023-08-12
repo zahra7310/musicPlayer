@@ -1,3 +1,7 @@
+<script setup>
+import Header from './../../section/Header.vue'
+</script>
+
 <template>
   <div>
     <div
@@ -166,6 +170,7 @@
         </div>
       </div>
       <div class="w-full bg-gray-800 ml-64">
+        <Header></Header>
         <router-view></router-view>
       </div>
     </div>
@@ -174,6 +179,7 @@
 
 
 <script>
+
 const baseUrl= window.location.origin;
 let icon1 = document.getElementById("icon1");
 let menu1 = document.getElementById("menu1");

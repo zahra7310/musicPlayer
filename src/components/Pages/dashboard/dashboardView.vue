@@ -19,7 +19,7 @@ import podcasts from "../podcasts/podcasts.vue";
               <div class="group relative">
                 <img
                   class="w-full md:w-72 block rounded"
-                  src="/src/assets/images/ly.webp"
+                  :src="podcast.img"
                   alt=""
                 />
                 <div
