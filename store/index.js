@@ -99,7 +99,24 @@ const store = createStore({
         },
       ],
       currentPlay:ref(),
-      musicIndex:0
+      musicIndex:0,
+      geners:[
+        'Pop',
+        'Rock',
+        'Hip Hop',
+        'Chillout',
+        'Country ',
+        'Oldies',
+        'Electro',
+        'Alternative',
+        'Classical',
+        'House',
+        'Jazz',
+        'Soul',
+        'Classic Rock',
+        'Blues',
+        'Oldies'
+      ]
     }
   },
   mutations: {

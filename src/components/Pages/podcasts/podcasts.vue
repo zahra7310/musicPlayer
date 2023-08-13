@@ -4,7 +4,7 @@ import { ref } from "vue";
 </script>
 
 <template>
-  <div class="pb-10">
+  <div class="pb-10 float-right w-full">
     <div v-if="currentPlay">
       <podcastCart
       :curentPodcast="currentPlay"

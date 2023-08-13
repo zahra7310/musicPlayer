@@ -1,5 +1,5 @@
 <template>
-    <div class="w-60 float-right flex items-end justify-end p-3">
+    <div class="w-full float-right">
        <search></search>
    </div>
      </template>
