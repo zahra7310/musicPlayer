@@ -18,7 +18,7 @@
         ></path>
       </svg>
     </h3>
-    <div class="w-full pb-10 grid-flow-row gap-6  grid-cols-5 grid float-left cursor-pointer">
+    <div class="w-full pb-10 grid-flow-row gap-6  lg:grid-cols-5 sm:grid-cols-2 grid float-left cursor-pointer">
       <div v-for="gener in $store.state.geners" key="gener.id" class="inline float-left text-center text-white rounded-lg bg-gradient-to-r from-blue-900 to-purple-500" >
         <router-link to="/podcasts">
           <span

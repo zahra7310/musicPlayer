@@ -1,15 +1,14 @@
 <script setup>
-import Header from './../../section/Header.vue'
+import Header from "./../../section/Header.vue";
 </script>
 
 <template>
   <div>
     <div
-      class="rounded-r bg-zinc-900 xl:hidden flex justify-between w-full p-6 items-center"
+      class="rounded-r bg-zinc-900 xl:hidden flex justify-between w-full p-6 items-center hidden md:block"
     >
       <div class="flex justify-between items-center space-x-3">
-        
-        <img src="/src/assets/images/logo.png" height="100" width="100">
+        <img src="/src/assets/images/logo.png" height="100" width="100" />
       </div>
       <div aria-label="toggler" class="flex justify-center items-center">
         <button
@@ -84,16 +83,25 @@ import Header from './../../section/Header.vue'
     <div class="w-full flex">
       <div
         id="Main"
-        class="top-0 min-h-screen transform xl:translate-x-0 ease-in-out transition duration-500 sm:w-64 flex justify-start items-startxs w-full bg-gray-900 flex-col fixed"
+        class="hidden md:block top-0 min-h-screen transform xl:translate-x-0 ease-in-out transition duration-500 sm:w-64 flex justify-start items-startxs w-full bg-gray-900 flex-col fixed"
       >
         <div class="hidden xl:flex justify-center p-6 items-center space-x-3">
-          <img src="/src/assets/images/logo.png" class="opacity-60" height="120" width="100">
+          <img
+            src="/src/assets/images/logo.png"
+            class="opacity-60"
+            height="120"
+            width="100"
+          />
         </div>
         <div class="mt-6 flex flex-col justify-start items-center w-full pb-5">
           <div
             class="p-3 border-gray-600 border-b flex jusitfy-start items-center space-x-6 w-full focus:outline-none focus:text-indigo-400 text-white rounded"
           >
-            <img width="30" height="35" src="/src/assets/images/icons/podcast-64.png">
+            <img
+              width="30"
+              height="35"
+              src="/src/assets/images/icons/podcast-64.png"
+            />
             <router-link to="/">
               <p class="text-base leading-4">Podcasts</p>
             </router-link>
@@ -162,14 +170,77 @@ import Header from './../../section/Header.vue'
                 stroke-linejoin="round"
               />
             </svg> -->
-            <img width="30" height="35" src='/src/assets/images/icons/music-folder.png'>
+            <img
+              width="30"
+              height="35"
+              src="/src/assets/images/icons/music-folder.png"
+            />
             <router-link to="">
               <p class="text-base leading-4">Alboms</p>
             </router-link>
           </div>
         </div>
       </div>
-      <div class="w-full bg-gray-800 ml-64">
+      <div class="lg:hidden absolute left-3 pt-3">
+        <button class="navbar-burger flex items-center text-blue-600 p-3">
+          <svg
+            class="block h-4 w-4 fill-current"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Mobile menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg>
+        </button>
+      </div>
+      <ul
+        class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6"
+      >
+        <li>
+          <a class="text-sm text-gray-400 hover:text-gray-500" href="#">Home</a>
+        </li>
+        <li class="text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            class="w-4 h-4 current-fill"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+            />
+          </svg>
+        </li>
+        <li>
+          <a class="text-sm text-blue-600 font-bold" href="#">About Us</a>
+        </li>
+        <li class="text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            class="w-4 h-4 current-fill"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+            />
+          </svg>
+        </li>
+        <li>
+          <a class="text-sm text-gray-400 hover:text-gray-500" href="#"
+            >Services</a
+          >
+        </li>
+      </ul>
+      <div class="w-full bg-gray-800 lg:ml-64">
         <Header></Header>
         <router-view></router-view>
       </div>
@@ -179,8 +250,7 @@ import Header from './../../section/Header.vue'
 
 
 <script>
-
-const baseUrl= window.location.origin;
+const baseUrl = window.location.origin;
 let icon1 = document.getElementById("icon1");
 let menu1 = document.getElementById("menu1");
 const showMenu1 = (flag) => {
@@ -220,4 +290,46 @@ const showNav = (flag) => {
 export default {
   name: "Navbar",
 };
+
+// Burger menus
+document.addEventListener('DOMContentLoaded', function() {
+    // open
+    const burger = document.querySelectorAll('.navbar-burger');
+    const menu = document.querySelectorAll('.navbar-menu');
+
+    if (burger.length && menu.length) {
+        for (var i = 0; i < burger.length; i++) {
+            burger[i].addEventListener('click', function() {
+                for (var j = 0; j < menu.length; j++) {
+                    menu[j].classList.toggle('hidden');
+                }
+            });
+        }
+    }
+
+    // close
+    const close = document.querySelectorAll('.navbar-close');
+    const backdrop = document.querySelectorAll('.navbar-backdrop');
+
+    if (close.length) {
+        for (var i = 0; i < close.length; i++) {
+            close[i].addEventListener('click', function() {
+                for (var j = 0; j < menu.length; j++) {
+                    menu[j].classList.toggle('hidden');
+                }
+            });
+        }
+    }
+
+    if (backdrop.length) {
+        for (var i = 0; i < backdrop.length; i++) {
+            backdrop[i].addEventListener('click', function() {
+                for (var j = 0; j < menu.length; j++) {
+                    menu[j].classList.toggle('hidden');
+                }
+            });
+        }
+    }
+});
+
 </script>

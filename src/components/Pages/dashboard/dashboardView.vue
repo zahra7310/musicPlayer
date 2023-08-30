@@ -6,8 +6,9 @@ import geners from "../../section/geners.vue";
 
 <template>
   <div>
+    <div class="mx-auto max-w-7xl py-8 sm:py-2 px-10 sm:px-5 ">
     <h3
-      class="text-2xl text-gray-300 px-8 pt-3 font-semibold flex items-center"
+      class="text-2xl text-gray-300 w-full pt-3 py-8 font-semibold flex items-center"
     >
       Top on Shenidid
       <svg
@@ -24,7 +25,6 @@ import geners from "../../section/geners.vue";
         ></path>
       </svg>
     </h3>
-    <div class="mx-auto max-w-7xl py-10 sm:px-10 lg:px-10">
       <main class="grid">
         <div>
           <section class="grid grid-cols-1 sm:grid-cols-4 gap-4">
@@ -107,8 +107,9 @@ import geners from "../../section/geners.vue";
         </div>
       </main>
     </div>
+    <div class="mx-auto max-w-7xl py-8 sm:py-5 sm:px-10 px-10">
     <h3
-      class="text-2xl text-gray-300 px-8 pt-3 font-semibold flex items-center"
+      class="text-2xl text-gray-300  py-8 w-full pt-3 font-semibold flex items-center"
     >
       Podcasts
       <svg
@@ -125,7 +126,6 @@ import geners from "../../section/geners.vue";
         ></path>
       </svg>
     </h3>
-    <div class="mx-auto max-w-7xl py-10 sm:px-10 lg:px-10">
       <main class="grid">
         <div>
           <section class="grid grid-cols-1 sm:grid-cols-4 gap-4">
@@ -208,7 +208,7 @@ import geners from "../../section/geners.vue";
         </div>
       </main>
     </div>
-    <div class="mx-auto max-w-7xl py-10 sm:px-10 lg:px-10">
+    <div class="mx-auto max-w-7xl py-8 sm:py-5 sm:px-10 px-10">
       <geners/>
     </div>
   </div>
